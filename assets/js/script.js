@@ -31,7 +31,7 @@ function getApi() {
 
 searchButton.addEventListener('click', getApi);
 
-//Create a form to search for the city. (Be sure city name, date, weather icon, temp, humidity, windspeed & UV index show.)
+//Create a form to search for the city. (Be sure city name, date, weather icon, temp, humidity & windspeed.)
 //Be sure UV index shows a color base on favorable or unfavorable conditions.
 //Be sure it shows a 5-day forcast for the city searched for showing (date, weather icon, temp, windspeed & humidity).
 
