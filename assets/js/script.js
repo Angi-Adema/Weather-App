@@ -10,15 +10,24 @@ function getApi() {
         })
         .then(function (data) {
             console.log(data) 
-        })
+
 //Create for loop to loop through obtained data.
+    for (var i = 0; i < data.length; i++) {
+    
+        //Create elements.
+        
+        //Set the text of the link and the href of the link. (Ins Activity 3)
+        
+        //Append the new elements.
 
-//Create elements.
+    }
+        })
 
-//Set the text of the link and the href of the link. (Ins Activity 3)
+        
+    }
 
-//Append the new elements.
-}
+
+
 
 searchButton.addEventListener('click', getApi);
 
