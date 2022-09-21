@@ -33,8 +33,33 @@ function getCurrentWeather(lat, lon) {
             return response.json();
         })
         .then(function (data) {
-            console.log("CURRENT WEATHER!!! ", data)
+            console.log("CURRENT WEATHER!!! ", data);
+
+            var currentday = document.createElement('h2');
+            currentday.textContent = 'Current Day Forcast:'
+
+            //Create elements for current day.
+            var date = new Date(data.dt * 1000).toLocaleDateString()
+            var icon = daysArr[i].weather[0].icon;
+            var temp = daysArr[i].main.temp;
+            var wind = daysArr[i].wind.speed;
+            var humidity = daysArr[i].main.humidity;
+
+            var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+
+            //Add attributes for the elements.
+            dateEl.setAttribute('class', 'card-title');
+            iconEl.setAttribute('src', iconUrl);
+            tempEl.setAttribute('class', 'card-text');
+            windEl.setAttribute('class', 'card-text');
+            humidityEl.setAttribute('class', 'card-text');
+
+            //Set content for those attributes.
+
+
         })
+            //Append elements.
+            currentContainer.append(currentday);
 }
 
 //Create a function that will send the request to the API for the data.
@@ -49,9 +74,9 @@ function getfiveDay(lat, lon) {
         })
         .then(function (data) {
             var daysArr = [data.list[6], data.list[14], data.list[22], data.list[30], data.list[38]];
-            var fiveDayheading = document.createElement('h1');
+            var fiveDayheading = document.createElement('h2');
             var cardContainer =  document.createElement('div');
-            cardContainer.setAttribute('class', 'row')
+            cardContainer.setAttribute('class', 'row');
 
             fiveDayheading.textContent = '5-Day Forcast:'
 
@@ -68,36 +93,36 @@ function getfiveDay(lat, lon) {
                 //Create elements.
                 var cardEl = document.createElement('div');
                 var cardBodyEl = document.createElement('div');
-                var dateEl = document.createElement('h3')
-                var iconEl = document.createElement('img')
-                var tempEl = document.createElement('p')
-                var windEl = document.createElement('p')
-                var humidityEl = document.createElement('p')
+                var dateEl = document.createElement('h3');
+                var iconEl = document.createElement('img');
+                var tempEl = document.createElement('p');
+                var windEl = document.createElement('p');
+                var humidityEl = document.createElement('p');
 
                 var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
                 // add attributes for the card classes bootstrap
                 cardEl.setAttribute('class', 'card col-2 m-1');
-                iconEl.setAttribute('src', iconUrl)
+                iconEl.setAttribute('src', iconUrl);
                 cardBodyEl.setAttribute('class', 'card-body');
                 dateEl.setAttribute('class', 'card-title');
-                tempEl.setAttribute('class', 'card-text')
-                windEl.setAttribute('class', 'card-text')
-                humidityEl.setAttribute('class', 'card-text')
+                tempEl.setAttribute('class', 'card-text');
+                windEl.setAttribute('class', 'card-text');
+                humidityEl.setAttribute('class', 'card-text');
 
                 //Set content to the attributes.
                 dateEl.textContent = date
-                tempEl.textContent =  'TEMP: ' +temp;
-                windEl.textContent = wind;
-                humidityEl.textContent =  humidity
+                tempEl.textContent =  'TEMP: ' + temp;
+                windEl.textContent = 'WIND: ' + wind;
+                humidityEl.textContent =  'HUMIDITY: ' + humidity;
 
                 //Append the new elements.
-                cardBodyEl.append(dateEl,iconEl, tempEl, windEl, humidityEl )
-                cardEl.append(cardBodyEl)
-                cardContainer.append(cardEl)
+                cardBodyEl.append(dateEl, iconEl, tempEl, windEl, humidityEl);
+                cardEl.append(cardBodyEl);
+                cardContainer.append(cardEl);
             }
 
-            fivedayContainer.append(fiveDayheading, cardContainer)
-        })
+            fivedayContainer.append(fiveDayheading, cardContainer);
+        });
 
 
 }
