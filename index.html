@@ -18,11 +18,25 @@
         <h1>Weather Forcast</h1>
     </header>
     <div class="col-md-4 row">
-        <label for="search-input" class="col-3">Search:</label>
+        <label for="search-input" class="col-3">Search for City:</label>
         <input type="text" id="search-input" class="col-6"/>
         <button id="search-button" class="btn btn-primary col-3">Search</button>
     </div>
     <main>
+        <div class="today">
+            <h2 id="cityname date"></h2>
+            <div id="icon"></div>
+            <h4 id="temp"></h4>
+            <h4 id="wind"></h4>
+            <h4 id="humidity"></h4>
+        </div>
+        <div class="fiveday">
+            <h3 id="date">5-Day Forecast:</h3>
+            <div id="icon"></div>
+            <h4 id="temp"></h4>
+            <h4 id="wind"></h4>
+            <h4 id="humidity"></h4>
+        </div>
     </main>
     <script src="./assets/js/script.js"></script>
 </body>

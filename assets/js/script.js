@@ -32,7 +32,7 @@ function getCurrentWeather(lat, lon, city) {
         return response.json();
     })
     .then(function (data) {
-      console.log("CURRENT WEATHER!!! ",data)
+        console.log("CURRENT WEATHER!!! ",data)
     })
 }
 
@@ -54,7 +54,7 @@ function getfiveDay(lat, lon) {
             for (var i = 0; i < daysArr.length; i++) {
                 console.log(daysArr[i]);
                 //Create elements.
-
+                
                 //Set the text of the link and the href of the link. (Ins Activity 3)
 
                 //Append the new elements.
