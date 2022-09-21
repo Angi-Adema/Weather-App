@@ -19,23 +19,22 @@ function getLatLon(city) {
             // create variables for lat, lon, cityname
             var lat = data[0].lat
             var lon = data[0].lon
-            var city = data[0].name
             getfiveDay(lat, lon)
-            getCurrentWeather(lat, lon, city)
+            getCurrentWeather(lat, lon)
         })
 }
 
 
-function getCurrentWeather(lat, lon, city) {
+function getCurrentWeather(lat, lon) {
     var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + apiKey;
 
     fetch(url)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        console.log("CURRENT WEATHER!!! ",data)
-    })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log("CURRENT WEATHER!!! ", data)
+        })
 }
 
 //Create a function that will send the request to the API for the data.
@@ -50,22 +49,54 @@ function getfiveDay(lat, lon) {
         })
         .then(function (data) {
             var daysArr = [data.list[6], data.list[14], data.list[22], data.list[30], data.list[38]];
+            var fiveDayheading = document.createElement('h1');
+            var cardContainer =  document.createElement('div');
+            cardContainer.setAttribute('class', 'row')
 
+            fiveDayheading.textContent = '5-Day Forcast:'
 
             // //Create for loop to loop through obtained data.
             for (var i = 0; i < daysArr.length; i++) {
                 console.log(daysArr[i]);
+                // create all data variables from the daysarr
+                var date = new Date(daysArr[i].dt * 1000).toLocaleDateString()
+                var icon = daysArr[i].weather[0].icon;
+                var temp = daysArr[i].main.temp;
+                var wind = daysArr[i].wind.speed;
+                var humidity = daysArr[i].main.humidity;
+
                 //Create elements.
-                var date = document.createElement
-                var icon = document.createElement
-                var temp = document.createElement
-                var wind = document.createElement
-                var humidity = document.createElement
-                //Set the text of the link and the href of the link. (Ins Activity 3)
+                var cardEl = document.createElement('div');
+                var cardBodyEl = document.createElement('div');
+                var dateEl = document.createElement('h3')
+                var iconEl = document.createElement('img')
+                var tempEl = document.createElement('p')
+                var windEl = document.createElement('p')
+                var humidityEl = document.createElement('p')
+
+                var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+                // add attributes for the card classes bootstrap
+                cardEl.setAttribute('class', 'card col-2 m-1');
+                iconEl.setAttribute('src', iconUrl)
+                cardBodyEl.setAttribute('class', 'card-body');
+                dateEl.setAttribute('class', 'card-title');
+                tempEl.setAttribute('class', 'card-text')
+                windEl.setAttribute('class', 'card-text')
+                humidityEl.setAttribute('class', 'card-text')
+
+                //Set content to the attributes.
+                dateEl.textContent = date
+                tempEl.textContent =  'TEMP: ' +temp;
+                windEl.textContent = wind;
+                humidityEl.textContent =  humidity
 
                 //Append the new elements.
-
+                cardBodyEl.append(dateEl,iconEl, tempEl, windEl, humidityEl )
+                cardEl.append(cardBodyEl)
+                cardContainer.append(cardEl)
             }
+
+            fivedayContainer.append(fiveDayheading, cardContainer)
         })
 
 
