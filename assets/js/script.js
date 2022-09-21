@@ -1,6 +1,8 @@
 var searchButton = document.getElementById('search-button');
 var searchInput = document.getElementById('search-input');
-var apiKey = 'aea21397c6d9dfc11ba04ff29f0547e6'
+var apiKey = 'aea21397c6d9dfc11ba04ff29f0547e6';
+var currentContainer = document.getElementById('current-day-container');
+var fivedayContainer = document.getElementById('five-day-container');
 
 function handleUserInput() {
     var userInput = searchInput.value.trim()
@@ -54,7 +56,11 @@ function getfiveDay(lat, lon) {
             for (var i = 0; i < daysArr.length; i++) {
                 console.log(daysArr[i]);
                 //Create elements.
-                
+                var date = document.createElement
+                var icon = document.createElement
+                var temp = document.createElement
+                var wind = document.createElement
+                var humidity = document.createElement
                 //Set the text of the link and the href of the link. (Ins Activity 3)
 
                 //Append the new elements.
