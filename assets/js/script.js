@@ -39,7 +39,9 @@ function getCurrentWeather(lat, lon) {
             currentday.textContent = 'Current Day Forcast:'
 
             //Create elements for current day.
-            var cityDateIcon = (city), (new Date(data.dt * 1000).toLocaleDateString(), (data.weather[0].icon);
+            var city = data.city;
+            var date = new Date(data.dt * 1000).toLocaleDateString()
+            var icon = data.weather[0].icon;
             var temp = data.main.temp;
             var wind = data.wind.speed;
             var humidity = data.main.humidity;
@@ -47,19 +49,23 @@ function getCurrentWeather(lat, lon) {
             var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
 
             //Add attributes for the elements.
-            cityDateIconEl.setAttribute('class', 'card-title');
+            cityEl.setAttribute('class', 'card-title');
+            dateEl.setAttribute('class', 'card-title');
+            iconEl.setAttribute('src', iconUrl);
             tempEl.setAttribute('class', 'card-text');
             windEl.setAttribute('class', 'card-text');
             humidityEl.setAttribute('class', 'card-text');
 
             //Set content for those attributes.
-            cityDateIconEl.textContent = city + date + icon
+            cityEl.textcontent = city;
+            dateEl.textContent = date;
             tempEl.textContent =  'TEMP: ' + temp;
             windEl.textContent = 'WIND: ' + wind;
             humidityEl.textContent =  'HUMIDITY: ' + humidity;
 
         })
             //Append elements.
+            currentContainer.append(city, date, icon);
             currentContainer.append(currentday);
 }
 
