@@ -38,7 +38,9 @@ function getCurrentWeather(lat, lon) {
             var currentday = document.createElement('h2');
             currentday.textContent = 'Current Day Forcast:';
 
-            //Create elements for current day.
+            var dayInfoContainer = document.createElement('div');
+
+            //Create variables for the data API call.
             var city = data.main.name;
             var date = new Date(data.dt * 1000).toLocaleDateString();
             var icon = data.weather[0].icon;
@@ -47,6 +49,14 @@ function getCurrentWeather(lat, lon) {
             var humidity = data.main.humidity;
 
             var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+
+            //Create the elements for the current weather.
+            var cityEl = document.createElement('h2');
+            var dateEl = document.createElement('h2');
+            var iconEl = document.createElement('img');
+            var tempEl = document.createElement('p');
+            var windEl = document.createElement('p');
+            var humidityEl = document.createElement('p');
 
             //Add attributes for the elements.
             cityEl.setAttribute('class', 'card-title');
@@ -65,8 +75,9 @@ function getCurrentWeather(lat, lon) {
 
         })
             //Append elements.
-            currentContainer.append(city, date, icon);
-            currentContainer.append(temp, wind, humidity);
+            currentday.append(dayInfoContainer);
+            currentday.append(city, date, icon, temp, wind, humidity);
+            
 }
 
 //Create a function that will send the request to the API for the data.
