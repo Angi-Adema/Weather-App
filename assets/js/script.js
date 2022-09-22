@@ -36,11 +36,11 @@ function getCurrentWeather(lat, lon) {
             console.log("CURRENT WEATHER!!! ", data);
 
             var currentday = document.createElement('h2');
-            currentday.textContent = 'Current Day Forcast:'
+            currentday.textContent = 'Current Day Forcast:';
 
             //Create elements for current day.
             var city = data.city;
-            var date = new Date(data.dt * 1000).toLocaleDateString()
+            var date = new Date(data.dt * 1000).toLocaleDateString();
             var icon = data.weather[0].icon;
             var temp = data.main.temp;
             var wind = data.wind.speed;
@@ -85,13 +85,13 @@ function getfiveDay(lat, lon) {
             var cardContainer =  document.createElement('div');
             cardContainer.setAttribute('class', 'row');
 
-            fiveDayheading.textContent = '5-Day Forcast:'
+            fiveDayheading.textContent = '5-Day Forcast:';
 
             // //Create for loop to loop through obtained data.
             for (var i = 0; i < daysArr.length; i++) {
                 console.log(daysArr[i]);
                 // create all data variables from the daysarr
-                var date = new Date(daysArr[i].dt * 1000).toLocaleDateString()
+                var date = new Date(daysArr[i].dt * 1000).toLocaleDateString();
                 var icon = daysArr[i].weather[0].icon;
                 var temp = daysArr[i].main.temp;
                 var wind = daysArr[i].wind.speed;
@@ -117,7 +117,7 @@ function getfiveDay(lat, lon) {
                 humidityEl.setAttribute('class', 'card-text');
 
                 //Set content to the attributes.
-                dateEl.textContent = date
+                dateEl.textContent = date;
                 tempEl.textContent =  'TEMP: ' + temp;
                 windEl.textContent = 'WIND: ' + wind;
                 humidityEl.textContent =  'HUMIDITY: ' + humidity;
