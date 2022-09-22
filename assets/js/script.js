@@ -39,7 +39,7 @@ function getCurrentWeather(lat, lon) {
             currentday.textContent = 'Current Day Forcast:';
 
             //Create elements for current day.
-            var city = data.city;
+            var city = data.main.name;
             var date = new Date(data.dt * 1000).toLocaleDateString();
             var icon = data.weather[0].icon;
             var temp = data.main.temp;
@@ -66,7 +66,7 @@ function getCurrentWeather(lat, lon) {
         })
             //Append elements.
             currentContainer.append(city, date, icon);
-            currentContainer.append(currentday);
+            currentContainer.append(temp, wind, humidity);
 }
 
 //Create a function that will send the request to the API for the data.
