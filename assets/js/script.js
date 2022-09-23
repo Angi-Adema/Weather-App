@@ -3,12 +3,67 @@ var searchInput = document.getElementById('search-input');
 var apiKey = 'aea21397c6d9dfc11ba04ff29f0547e6';
 var currentContainer = document.getElementById('current-day-container');
 var fivedayContainer = document.getElementById('five-day-container');
+var historyContainer = document.getElementById('history');
 
+var searchHistory = []
+//Create a function that handles the user input and removes white space.
 function handleUserInput() {
     var userInput = searchInput.value.trim()
-    getLatLon(userInput)
+    getLatLon(userInput);
+   
+}
+//Create a function to save userinput(city) to local storage.
+function saveToLocalStorage(city){
+
+    // check for duplicates in seach history
+    if(searchHistory.indexOf(city) !== -1){
+        return;
+    }
+
+    // if the city gets sent to the function we need to push it to the search history array
+    searchHistory.push(city);
+
+    // save searchHistry array into local storage
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    button();
+}
+//Create a function to retrieve data from local storage to save userinput(city) buttons from previous search.
+function retrieveLocalStorage(){
+   var history = localStorage.getItem('searchHistory');
+   if (history){
+       searchHistory = JSON.parse(history)
+   }
+    button();
 }
 
+retrieveLocalStorage()
+//Create a function to give the storage buttons click functionality.
+
+
+
+function button() {
+
+    historyContainer.innerHTML = ''
+
+    for (var i = 0; i < searchHistory.length; i++) {
+       
+        // create
+        var btn = document.createElement('button');
+        // set
+        btn.textContent = searchHistory[i];
+        btn.setAttribute('value', searchHistory[i]);
+        btn.addEventListener('click', historyBtn);
+        // append
+        historyContainer.append(btn);
+        
+    }
+}
+
+function historyBtn() {
+    getLatLon(this.value)
+}
+
+//Create a function for the city data pulled from the API.
 function getLatLon(city) {
     var url = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&appid=' + apiKey;
     fetch(url).then(function (response) {
@@ -21,10 +76,11 @@ function getLatLon(city) {
             var lon = data[0].lon
             getfiveDay(lat, lon)
             getCurrentWeather(lat, lon)
+            saveToLocalStorage(data[0].name)
         })
 }
 
-
+//Create a function that takes the lat and lon in order to return the current day's weather info.
 function getCurrentWeather(lat, lon) {
     var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + apiKey;
 
@@ -35,13 +91,12 @@ function getCurrentWeather(lat, lon) {
         .then(function (data) {
             console.log("CURRENT WEATHER!!! ", data);
 
-            var currentday = document.createElement('h2');
-            currentday.textContent = 'Current Day Forcast:';
+            currentContainer.innerHTML='';
 
-            var dayInfoContainer = document.createElement('div');
-
+          
             //Create variables for the data API call.
-            var city = data.main.name;
+            var city = data.name;
+            console.log(city);
             var date = new Date(data.dt * 1000).toLocaleDateString();
             var icon = data.weather[0].icon;
             var temp = data.main.temp;
@@ -52,7 +107,6 @@ function getCurrentWeather(lat, lon) {
 
             //Create the elements for the current weather.
             var cityEl = document.createElement('h2');
-            var dateEl = document.createElement('h2');
             var iconEl = document.createElement('img');
             var tempEl = document.createElement('p');
             var windEl = document.createElement('p');
@@ -60,27 +114,27 @@ function getCurrentWeather(lat, lon) {
 
             //Add attributes for the elements.
             cityEl.setAttribute('class', 'card-title');
-            dateEl.setAttribute('class', 'card-title');
             iconEl.setAttribute('src', iconUrl);
             tempEl.setAttribute('class', 'card-text');
             windEl.setAttribute('class', 'card-text');
             humidityEl.setAttribute('class', 'card-text');
 
             //Set content for those attributes.
-            cityEl.textcontent = city;
-            dateEl.textContent = date;
+            cityEl.textContent = city + ' ' + date;
+           
             tempEl.textContent =  'TEMP: ' + temp;
             windEl.textContent = 'WIND: ' + wind;
             humidityEl.textContent =  'HUMIDITY: ' + humidity;
 
-        })
             //Append elements.
-            currentday.append(dayInfoContainer);
-            currentday.append(city, date, icon, temp, wind, humidity);
+            cityEl.append(iconEl)
+            currentContainer.append(cityEl, tempEl, windEl, humidityEl);
+           
+        })
             
 }
 
-//Create a function that will send the request to the API for the data.
+//Create a function that will send the request to the API for the data of the 5-day forcast.
 function getfiveDay(lat, lon) {
 
 
@@ -91,6 +145,8 @@ function getfiveDay(lat, lon) {
             return response.json();
         })
         .then(function (data) {
+            fivedayContainer.innerHTML = ''
+            //Array of the five day data set or array.
             var daysArr = [data.list[6], data.list[14], data.list[22], data.list[30], data.list[38]];
             var fiveDayheading = document.createElement('h2');
             var cardContainer =  document.createElement('div');
@@ -111,13 +167,14 @@ function getfiveDay(lat, lon) {
                 //Create elements.
                 var cardEl = document.createElement('div');
                 var cardBodyEl = document.createElement('div');
-                var dateEl = document.createElement('h3');
+                var dateEl = document.createElement('h4');
                 var iconEl = document.createElement('img');
                 var tempEl = document.createElement('p');
                 var windEl = document.createElement('p');
                 var humidityEl = document.createElement('p');
-
+                //Weather icon URL.
                 var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+
                 // add attributes for the card classes bootstrap
                 cardEl.setAttribute('class', 'card col-2 m-1');
                 iconEl.setAttribute('src', iconUrl);
@@ -149,10 +206,6 @@ function getfiveDay(lat, lon) {
 
 
 searchButton.addEventListener('click', handleUserInput);
-
-//Create a form to search for the city. (Be sure city name, date, weather icon, temp, humidity & windspeed.)
-//Be sure UV index shows a color base on favorable or unfavorable conditions.
-//Be sure it shows a 5-day forcast for the city searched for showing (date, weather icon, temp, windspeed & humidity).
 
 //Create search history in local storage with buttons to be clicked on for future reference.
 
