@@ -65,7 +65,7 @@ function historyBtn() {
 
 //Create a function for the city data pulled from the API.
 function getLatLon(city) {
-    var url = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&appid=' + apiKey;
+    var url = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&appid=' + apiKey;
     fetch(url).then(function (response) {
         return response.json();
     })
