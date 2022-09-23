@@ -1,1 +1,11 @@
-/* font-family: 'Archivo', sans-serif; */
+.text-center{
+    background-image: linear-gradient(rgb(3, 3, 109), blue);
+    color: white;
+}
+
+.card{
+    background-color: rgb(213, 213, 253);
+    
+}
+
+

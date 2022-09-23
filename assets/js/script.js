@@ -10,13 +10,13 @@ var searchHistory = []
 function handleUserInput() {
     var userInput = searchInput.value.trim()
     getLatLon(userInput);
-   
+
 }
 //Create a function to save userinput(city) to local storage.
-function saveToLocalStorage(city){
+function saveToLocalStorage(city) {
 
     // check for duplicates in seach history
-    if(searchHistory.indexOf(city) !== -1){
+    if (searchHistory.indexOf(city) !== -1) {
         return;
     }
 
@@ -28,25 +28,25 @@ function saveToLocalStorage(city){
     button();
 }
 //Create a function to retrieve data from local storage to save userinput(city) buttons from previous search.
-function retrieveLocalStorage(){
-   var history = localStorage.getItem('searchHistory');
-   if (history){
-       searchHistory = JSON.parse(history)
-   }
+function retrieveLocalStorage() {
+    var history = localStorage.getItem('searchHistory');
+    if (history) {
+        searchHistory = JSON.parse(history)
+    }
     button();
 }
 
 retrieveLocalStorage()
-//Create a function to give the storage buttons click functionality.
 
 
 
+//Create a function for the functionality of the search history buttons
 function button() {
 
     historyContainer.innerHTML = ''
 
     for (var i = 0; i < searchHistory.length; i++) {
-       
+
         // create
         var btn = document.createElement('button');
         // set
@@ -55,10 +55,10 @@ function button() {
         btn.addEventListener('click', historyBtn);
         // append
         historyContainer.append(btn);
-        
+
     }
 }
-
+//create a function to keep the memory of the city search buttons from the previous searches.
 function historyBtn() {
     getLatLon(this.value)
 }
@@ -91,9 +91,9 @@ function getCurrentWeather(lat, lon) {
         .then(function (data) {
             console.log("CURRENT WEATHER!!! ", data);
 
-            currentContainer.innerHTML='';
+            currentContainer.innerHTML = '';
 
-          
+
             //Create variables for the data API call.
             var city = data.name;
             console.log(city);
@@ -121,17 +121,17 @@ function getCurrentWeather(lat, lon) {
 
             //Set content for those attributes.
             cityEl.textContent = city + ' ' + date;
-           
-            tempEl.textContent =  'TEMP: ' + temp;
+
+            tempEl.textContent = 'TEMP: ' + temp;
             windEl.textContent = 'WIND: ' + wind;
-            humidityEl.textContent =  'HUMIDITY: ' + humidity;
+            humidityEl.textContent = 'HUMIDITY: ' + humidity;
 
             //Append elements.
             cityEl.append(iconEl)
             currentContainer.append(cityEl, tempEl, windEl, humidityEl);
-           
+
         })
-            
+
 }
 
 //Create a function that will send the request to the API for the data of the 5-day forcast.
@@ -149,7 +149,7 @@ function getfiveDay(lat, lon) {
             //Array of the five day data set or array.
             var daysArr = [data.list[6], data.list[14], data.list[22], data.list[30], data.list[38]];
             var fiveDayheading = document.createElement('h2');
-            var cardContainer =  document.createElement('div');
+            var cardContainer = document.createElement('div');
             cardContainer.setAttribute('class', 'row');
 
             fiveDayheading.textContent = '5-Day Forcast:';
@@ -186,9 +186,9 @@ function getfiveDay(lat, lon) {
 
                 //Set content to the attributes.
                 dateEl.textContent = date;
-                tempEl.textContent =  'TEMP: ' + temp;
+                tempEl.textContent = 'TEMP: ' + temp;
                 windEl.textContent = 'WIND: ' + wind;
-                humidityEl.textContent =  'HUMIDITY: ' + humidity;
+                humidityEl.textContent = 'HUMIDITY: ' + humidity;
 
                 //Append the new elements.
                 cardBodyEl.append(dateEl, iconEl, tempEl, windEl, humidityEl);
