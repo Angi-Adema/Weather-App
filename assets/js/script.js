@@ -103,7 +103,7 @@ function getCurrentWeather(lat, lon) {
             var wind = data.wind.speed;
             var humidity = data.main.humidity;
 
-            var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+            var iconUrl = "https://openweathermap.org/img/w/" + icon + ".png";
 
             //Create the elements for the current weather.
             var cityEl = document.createElement('h2');
@@ -138,7 +138,7 @@ function getCurrentWeather(lat, lon) {
 function getfiveDay(lat, lon) {
 
 
-    var url = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + apiKey;
+    var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + apiKey;
     //Fetch request for the data.
     fetch(url)
         .then(function (response) {
@@ -173,7 +173,7 @@ function getfiveDay(lat, lon) {
                 var windEl = document.createElement('p');
                 var humidityEl = document.createElement('p');
                 //Weather icon URL.
-                var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+                var iconUrl = "https://openweathermap.org/img/w/" + icon + ".png";
 
                 // add attributes for the card classes bootstrap
                 cardEl.setAttribute('class', 'card col-2 m-1');
