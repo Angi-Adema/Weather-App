@@ -10,8 +10,8 @@ var searchHistory = []
 function handleUserInput() {
     var userInput = searchInput.value.trim()
     getLatLon(userInput);
-
 }
+
 //Create a function to save userinput(city) to local storage.
 function saveToLocalStorage(city) {
 
@@ -25,7 +25,7 @@ function saveToLocalStorage(city) {
 
     // save searchHistry array into local storage
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-    button();
+    saveHistoryButtons();
 }
 //Create a function to retrieve data from local storage to save userinput(city) buttons from previous search.
 function retrieveLocalStorage() {
@@ -33,20 +33,17 @@ function retrieveLocalStorage() {
     if (history) {
         searchHistory = JSON.parse(history)
     }
-    button();
+    saveHistoryButtons();
 }
 
-retrieveLocalStorage()
-
-
+retrieveLocalStorage();
 
 //Create a function for the functionality of the search history buttons
-function button() {
+function saveHistoryButtons() {
 
     historyContainer.innerHTML = ''
 
     for (var i = 0; i < searchHistory.length; i++) {
-
         // create
         var btn = document.createElement('button');
         // set
@@ -55,7 +52,6 @@ function button() {
         btn.addEventListener('click', historyBtn);
         // append
         historyContainer.append(btn);
-
     }
 }
 //create a function to keep the memory of the city search buttons from the previous searches.
@@ -136,8 +132,6 @@ function getCurrentWeather(lat, lon) {
 
 //Create a function that will send the request to the API for the data of the 5-day forcast.
 function getfiveDay(lat, lon) {
-
-
     var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + apiKey;
     //Fetch request for the data.
     fetch(url)
@@ -198,15 +192,8 @@ function getfiveDay(lat, lon) {
 
             fivedayContainer.append(fiveDayheading, cardContainer);
         });
-
-
 }
-
-
-
 
 searchButton.addEventListener('click', handleUserInput);
 
 //Create search history in local storage with buttons to be clicked on for future reference.
-
-

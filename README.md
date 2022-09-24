@@ -6,7 +6,7 @@ I created a weather app that is designed to allow a user to input the name of a 
 
 ![Weather App](./assets/images/weatherappSS.png)
 
-[Deployed Site]()
+[Deployed Site](https://angi-adema.github.io/Weather-App/)
 
 ## Acceptance Criteria
 
